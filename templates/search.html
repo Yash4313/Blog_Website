@@ -1,0 +1,40 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{% if results %}
+  <section class="my-5 container">
+    <div class="row g-4">
+      {% for res in results %}
+      <!-- Responsive column classes -->
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm blog-card">
+            <img
+              src="{{ res.featured_image.url }}"
+              class="card-img-top img-fluid"
+              alt="Blog Image"
+            />
+            <div class="card-body">
+              <span class="badge bg-warning mb-2">{{ res.category }}</span>
+              <h5 class="card-title fw-bold">{{ res.title }}</h5>
+              <p class="card-text text-muted">
+                {{ res.short_description | truncatewords:20 }}
+              </p>
+            </div>
+            <div
+              class="card-footer bg-white border-0 d-flex justify-content-between align-items-center"
+            >
+              <small class="text-muted text-small">
+                {{res.created_at | timesince}} ago | {{ res.author }}
+              </small>
+              <a href="{% url 'blogs' res.slug %}" target="_blank" class="btn btn-sm btn-outline-dark">
+                Read More
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section> 
+{% else %}
+  <p class="text-center fs-4">No results found for "{{ query }}"</p>
+{% endif %} 
+{% endblock%}

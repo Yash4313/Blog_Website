@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+ 
+
+    <div class="container my-5">
+        <div class="row g-5">
+            
+            <div class="col-lg-8">
+                
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none">Home</a></li>
+                    </ol>
+                </nav>
+
+                <h1 class="fw-bold display-4 mb-4">{{ post.title }}</h1>
+                
+                <div class="d-flex align-items-center mb-4 border-bottom pb-4">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="rounded-circle me-3" width="50" height="50">
+                    <div>
+                        <div class="fw-bold">{{ post.author }}</div>
+                        <div class="text-muted small">{{ post.created_at | date:"M d, Y" }}</div>
+                    </div>
+                </div>
+
+                <img src="{{ post.featured_image.url }}" class="img-fluid rounded mb-5 shadow-sm w-100" alt="Featured">
+
+                <div class="fs-5 lh-lg text-dark">
+                    <p class="lead">{{ post.blog_body }}</p>
+                    
+                    {% comment %} <h3 class="fw-bold mt-5 mb-3">1. AI-Assisted Coding</h3>
+                    <p>Artificial Intelligence isn't just generating images; it's writing code. Developers are shifting from writing syntax to architecting solutions.</p>
+                    
+                    <figure class="bg-white p-4 border-start border-4 border-primary rounded shadow-sm my-5">
+                        <blockquote class="blockquote mb-0">
+                            <p class="fst-italic mb-2">"The best code is no code. The second best is code maintained by AI."</p>
+                            <footer class="blockquote-footer">Tech Innovator</footer>
+                        </blockquote>
+                    </figure>
+
+                    <h3 class="fw-bold mt-5 mb-3">2. Serverless Architecture</h3>
+                    <p>Why manage servers when you can focus on functions? Serverless computing allows developers to deploy code without worrying about infrastructure.</p> {% endcomment %}
+                </div>
+
+                <hr class="my-5">
+
+                <div class="mb-5">
+                    <span class="fw-bold me-2">Tags:</span>
+                    <a href="{% url 'category_list' category.id %}" class="btn btn-light btn-sm border">{{ post.category }}</a>
+                </div>
+
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <h4 class="fw-bold mb-4">Comments (2)</h4>
+                    
+                    <div class="d-flex mb-4 border-bottom pb-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle me-3" width="50" height="50" alt="User">
+                        <div>
+                            <h6 class="fw-bold mb-1">Jane Smith</h6>
+                            <small class="text-muted d-block mb-2">Dec 22, 2025</small>
+                            <p class="mb-1">Great article! Totally agree about the serverless trend.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4 border-bottom pb-3">
+                        <img src="https://randomuser.me/api/portraits/men/11.jpg" class="rounded-circle me-3" width="50" height="50" alt="User">
+                        <div>
+                            <h6 class="fw-bold mb-1">Mike Ross</h6>
+                            <small class="text-muted d-block mb-2">Dec 23, 2025</small>
+                            <p class="mb-1">Very insightful read.</p>
+                        </div>
+                    </div>
+
+                    <h5 class="fw-bold mt-4 mb-3">Leave a Reply</h5>
+                    <textarea class="form-control mb-3" rows="3" placeholder="Join the discussion..."></textarea>
+                    <button class="btn btn-primary">Post Comment</button>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 80px; z-index: 1;">
+
+                    <div class="card border-0 shadow-sm mb-4 text-center">
+                        <div class="card-body">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mb-3" width="80" alt="Author">
+                            <h5 class="card-title fw-bold">{{ post.author }}</h5>
+                            <p class="card-text text-muted small">Senior Developer writing about code and design.</p>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold mb-3">Follow Me On:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item border-0 px-0">
+                                    <a href="#" class="text-decoration-none text-dark fw-bold">Mastering CSS Grid</a>
+                                    <small class="text-muted d-block">3k Views</small>
+                                </li>
+                                <li class="list-group-item border-0 px-0">
+                                    <a href="#" class="text-decoration-none text-dark fw-bold">Why Dark Mode Matters</a>
+                                    <small class="text-muted d-block">1.2k Views</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>  
+{% endblock %}
