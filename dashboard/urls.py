@@ -14,4 +14,10 @@ urlpatterns = [
     path('posts/add/', views.add_post , name='add_post'),
     path('posts/edit/<int:id>/', views.edit_post , name='edit_post'),
     path('post/delete/<int:id>/',views.delete_post, name='delete_post'),
+
+    # user Management
+    path('users/', views.users , name='users'),
+    path('users/add/', views.add_user , name='add_user'),
+    path('users/edit/<int:id>/', views.edit_user , name='edit_user'),
+    path('users/delete/<int:id>/',views.delete_user, name='delete_user'),
 ]

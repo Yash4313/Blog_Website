@@ -1,5 +1,7 @@
 from django import forms
 from blog.models import Category,Post
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -17,7 +19,7 @@ class CategoryForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'category','short_description','blog_body', 'featured_image', 'status', 'is_featured')
+        fields = ('title', 'category','short_description','blog_body', 'featured_image', 'status', 'is_featured') 
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter post title'}),
@@ -37,3 +39,39 @@ class PostForm(forms.ModelForm):
             'status': 'Status',
             'is_featured': 'Is Featured',
         }
+
+class AddUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'is_staff','is_active','groups','user_permissions' ,'password1', 'password2')
+
+    def __init__(self, *args, **kwargs):
+        super(AddUserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter username'})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter first name'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter last name'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'placeholder':' Enter email'})
+        self.fields['is_staff'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['is_active'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['groups'].widget.attrs.update({'class': 'form-select'})
+        self.fields['user_permissions'].widget.attrs.update({'class': 'form-select'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter password'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Confirm password'})
+
+
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'is_staff','is_active','groups','user_permissions')
+
+    # defining init method to customize form fields
+    def __init__(self, *args, **kwargs):
+        super(EditUserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter username'})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter first name'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter last name'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'placeholder':' Enter email'})
+        self.fields['is_staff'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['is_active'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['groups'].widget.attrs.update({'class': 'form-select'})
+        self.fields['user_permissions'].widget.attrs.update({'class': 'form-select'})

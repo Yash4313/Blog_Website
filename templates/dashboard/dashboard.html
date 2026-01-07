@@ -39,6 +39,20 @@
               </div>
             </div>
           </div>
+          {% if perms.auth.view_user %}
+          <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card text-white" style="background-color: #6f42c1;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Total Users</h5>
+                {% if user_count %}
+                <p class="card-text">{{ user_count }}</p>
+                {% else %}
+                <p class="card-text">0</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>

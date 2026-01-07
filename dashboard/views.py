@@ -1,18 +1,21 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from blog.models import Category, Post
 from django.contrib.auth.decorators import login_required
-from .forms import CategoryForm, PostForm
+from .forms import CategoryForm, PostForm, AddUserForm , EditUserForm
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 # Create your views here.
 @login_required(login_url='login')
 def dashboard(request):
     category_count = Category.objects.all().count()
     blogs_count = Post.objects.all().count()
+    users_count = User.objects.all().count()
 
     context = {
         'category_count': category_count,
         'blogs_count': blogs_count,
+        'user_count': users_count,
     }
     return render(request, 'dashboard/dashboard.html', context)
 
@@ -123,3 +126,50 @@ def delete_post(request,id):
     post  = get_object_or_404(Post,id=id)
     post.delete()
     return redirect('posts')
+
+
+@login_required(login_url='login')
+def users(request):
+    users = User.objects.all()
+    context={
+        'users': users,
+    }
+    return render(request, 'dashboard/users.html', context)
+
+
+@login_required(login_url='login')
+def add_user(request):
+    if request.method == 'POST':
+        form = AddUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+    else:
+        form = AddUserForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'dashboard/add_user.html', context)
+
+@login_required(login_url='login')
+def edit_user(request, id):
+    user = get_object_or_404(User, id=id)
+    if request.method == 'POST':
+        form = EditUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+    else:
+        form = EditUserForm(instance=user)
+    context = {
+        'form': form,
+        'user': user,
+    }
+    return render(request, 'dashboard/edit_user.html', context)
+
+@login_required(login_url='login')
+def delete_user(request, id):
+    user = get_object_or_404(User, id=id)
+    user.delete()
+    return redirect('users')

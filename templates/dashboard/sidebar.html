@@ -6,6 +6,11 @@
     <li class="nav-item">
       <a class="nav-link text-white {% if '/dashboard/' == request.path %}bg-primary{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
     </li>
+    {% if perms.auth.view_user %}
+    <li class="nav-item">
+      <a class="nav-link text-white {% if '/users/' in request.path %}bg-primary{% endif %}" href="{% url 'users' %}">Users</a>
+    </li>
+    {% endif %}
     <li class="nav-item">
       <a class="nav-link text-white {% if '/categories/' in request.path %}bg-primary{% endif %}" href="{% url 'categories' %}">Categories</a>
     </li>
