@@ -10,5 +10,8 @@ urlpatterns = [
     path('delete_category/<int:id>/', views.delete_category , name='delete_category'),
     
     # post Management
-    
+    path('posts/', views.posts , name='posts'),
+    path('posts/add/', views.add_post , name='add_post'),
+    path('posts/edit/<int:id>/', views.edit_post , name='edit_post'),
+    path('post/delete/<int:id>/',views.delete_post, name='delete_post'),
 ]

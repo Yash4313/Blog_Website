@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row min-vh-100">
+    {% include 'dashboard/sidebar.html' %}
+
+    <main class="col-12 col-md-9 col-lg-10 p-4">
+      <h2 class="fw-bold">Add Post</h2>
+      <form method="post" action="{% url 'add_post' %}" enctype="multipart/form-data" style="max-width: 700px;">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <div class="mb-3 mt-4">
+          {{ form.title.label_tag }}
+          {{ form.title }}
+          {% if form.title.errors %}
+            <div class="text-danger">
+              {{ form.title.errors }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.short_description.label_tag }}
+          {{ form.short_description }}
+          {% if form.short_description.errors %}
+            <div class="text-danger">
+              {{ form.short_description.errors }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.blog_body.label_tag }}
+          {{ form.blog_body }}
+          {% if form.blog_body.errors %}
+            <div class="text-danger">
+              {{ form.blog_body.errors }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.featured_image.label_tag }}
+          {{ form.featured_image }}
+          {% if form.featured_image.errors %}
+            <div class="text-danger">
+              {{ form.featured_image.errors }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.category.label_tag }}
+          {{ form.category }}
+          {% if form.category.errors %}
+            <div class="text-danger">
+              {{ form.category.errors }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.status.label_tag }}
+          {{ form.status }}
+          {% if form.status.errors %}
+            <div class="text-danger">
+              {{ form.status.errors }}
+            </div>
+          {% endif %}
+        </div>
+      
+        <div class="mb-3">
+          {{ form.is_featured.label_tag }}
+          {{ form.is_featured }}
+          {% if form.is_featured.errors %}
+            <div class="text-danger">
+              {{ form.is_featured.errors }}
+            </div>
+          {% endif %}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </main>
+  </div>
+</div>
+
+{% endblock %}
