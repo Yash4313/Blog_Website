@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row min-vh-100">
+    {% include 'dashboard/sidebar.html' %}
+
+    <main class="col-12 col-md-9 col-lg-10 p-4">
+      <h2 class="fw-bold">Add Category</h2>
+      <form method="post" action="{% url 'add_category' %}" style="max-width: 500px;">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+        <div class="mb-3 mt-4">
+          {{ form.category_name.label_tag }}
+          {{ form.category_name }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </main>
+  </div>
+</div>
+
+{% endblock %}

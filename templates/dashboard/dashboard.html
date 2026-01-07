@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row min-vh-100">
+
+    {% include 'dashboard/sidebar.html' %}
+
+
+
+    <div class="col">
+      <div class="container mt-4">
+        <h2 class="fw-bold">{{ user }}'s Dashboard</h2>
+        <p class="text-muted mb-0">Overview of blog activity</p>
+
+        <div class="row mt-4">
+          <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card bg-primary text-white">
+              <div class="card-body text-center">
+                <h5 class="card-title">Categories</h5>
+                {% if category_count %}
+                <p class="card-text">{{ category_count }}</p>
+                {% else %}
+                <p class="card-text">0</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card bg-success text-white">
+              <div class="card-body text-center">
+                <h5 class="card-title">Posts</h5>
+                {% if blogs_count %}
+                <p class="card-text">{{ blogs_count }}</p>
+                {% else %}
+                <p class="card-text">0</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
