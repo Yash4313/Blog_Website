@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
 # Create your views here.
 
-from blog.models import Category,Post
+from blog.models import Category,Post,Comment
 from django.db.models import Q
 
 # render individual category list
@@ -23,15 +24,25 @@ def category_list(request, category_id):
 
 # render individual blog post
 def blogs(request, slug):
-    try:
-        post = Post.objects.get(slug=slug, status='published')
-        category = post.category
-    except Post.DoesNotExist:
-        return render(request, '404.html', status=404)
+    post = get_object_or_404(Post, slug=slug, status='published')
+    
+    if request.method == 'POST':
+        # Handle comment submission
+        comment = Comment()
+        comment.user = request.user
+        comment.post = post
+        comment.comment = request.POST['comment']
+        comment.save()
+        return HttpResponseRedirect(request.path_info)
+
+    category = post.category
+    comments = post.comment_set.all().order_by('-created_at') #fetch comments related to the post
 
     context = {
         'post': post,
         'category': category,
+        'comments': comments,
+        'comment_count': comments.count(),
     }
     return render(request, 'blogs.html', context)
 

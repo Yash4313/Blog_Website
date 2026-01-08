@@ -27,19 +27,6 @@
 
                 <div class="fs-5 lh-lg text-dark">
                     <p class="lead">{{ post.blog_body }}</p>
-                    
-                    {% comment %} <h3 class="fw-bold mt-5 mb-3">1. AI-Assisted Coding</h3>
-                    <p>Artificial Intelligence isn't just generating images; it's writing code. Developers are shifting from writing syntax to architecting solutions.</p>
-                    
-                    <figure class="bg-white p-4 border-start border-4 border-primary rounded shadow-sm my-5">
-                        <blockquote class="blockquote mb-0">
-                            <p class="fst-italic mb-2">"The best code is no code. The second best is code maintained by AI."</p>
-                            <footer class="blockquote-footer">Tech Innovator</footer>
-                        </blockquote>
-                    </figure>
-
-                    <h3 class="fw-bold mt-5 mb-3">2. Serverless Architecture</h3>
-                    <p>Why manage servers when you can focus on functions? Serverless computing allows developers to deploy code without worrying about infrastructure.</p> {% endcomment %}
                 </div>
 
                 <hr class="my-5">
@@ -50,32 +37,37 @@
                 </div>
 
                 <div class="bg-white p-4 rounded shadow-sm">
-                    <h4 class="fw-bold mb-4">Comments (2)</h4>
-                    
+                    <h4 class="fw-bold mb-4">Comments ({{ comment_count }})</h4>
+                    {% if comments  %}
+                    {% for comment in comments %}
                     <div class="d-flex mb-4 border-bottom pb-3">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle me-3" width="50" height="50" alt="User">
                         <div>
-                            <h6 class="fw-bold mb-1">Jane Smith</h6>
-                            <small class="text-muted d-block mb-2">Dec 22, 2025</small>
-                            <p class="mb-1">Great article! Totally agree about the serverless trend.</p>
+                            <h6 class="fw-bold mb-1">{{ comment.user }}</h6>
+                            <small class="text-muted d-block mb-2">{{ comment.created_at | timesince }}</small>
+                            <p class="mb-1">{{ comment.comment }}</p>
                         </div>
                     </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted">No comments yet. Be the first to comment!</p>
+                    {% endif %}
 
-                    <div class="d-flex mb-4 border-bottom pb-3">
-                        <img src="https://randomuser.me/api/portraits/men/11.jpg" class="rounded-circle me-3" width="50" height="50" alt="User">
-                        <div>
-                            <h6 class="fw-bold mb-1">Mike Ross</h6>
-                            <small class="text-muted d-block mb-2">Dec 23, 2025</small>
-                            <p class="mb-1">Very insightful read.</p>
-                        </div>
+                    {% if user.is_authenticated %}
+                    <div class="form-group">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <h5 class="fw-bold mt-4 mb-3">Leave a Reply</h5>
+                            <textarea name="comment" class="form-control mb-3" rows="3" placeholder="Write Your Comment Here"></textarea>
+                            <input class="btn btn-primary" type="submit" value="Post Comment">
+                        </form>
                     </div>
-
-                    <h5 class="fw-bold mt-4 mb-3">Leave a Reply</h5>
-                    <textarea class="form-control mb-3" rows="3" placeholder="Join the discussion..."></textarea>
-                    <button class="btn btn-primary">Post Comment</button>
+                    {% else %}  
+                    <p class="text-muted">Please <a href="{% url 'login' %}">login</a> to post a comment.</p>
+                    {% endif %}
                 </div>
-
             </div>
+
+
 
             <div class="col-lg-4">
                 <div class="sticky-top" style="top: 80px; z-index: 1;">
@@ -84,11 +76,10 @@
                         <div class="card-body">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mb-3" width="80" alt="Author">
                             <h5 class="card-title fw-bold">{{ post.author }}</h5>
-                            <p class="card-text text-muted small">Senior Developer writing about code and design.</p>
                         </div>
                     </div>
 
-                    <div class="card border-0 shadow-sm">
+                    {% comment %} <div class="card border-0 shadow-sm">
                         <div class="card-body">
                             <h5 class="card-title fw-bold mb-3">Follow Me On:</h5>
                             <ul class="list-group list-group-flush">
@@ -102,7 +93,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
 
                 </div>
             </div>
