@@ -50,3 +50,10 @@ def logout_view(request):
     auth_logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect("home")
+
+def view_all_posts(request):
+    posts = Post.objects.filter(status='published').order_by('-created_at')
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'view_all_posts.html', context)

@@ -27,7 +27,7 @@
         <section id="featured">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="fw-bold">Featured Posts</h2>
-                <a href="#" class="text-decoration-none">View All <i class="fas fa-arrow-right"></i></a>
+                <a href="{% url 'view_all_posts' %}" class="text-decoration-none">View All <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="row g-4">
                 {% for post in featured_posts %}

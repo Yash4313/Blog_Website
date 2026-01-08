@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
  
 
@@ -16,7 +17,7 @@
                 <h1 class="fw-bold display-4 mb-4">{{ post.title }}</h1>
                 
                 <div class="d-flex align-items-center mb-4 border-bottom pb-4">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="rounded-circle me-3" width="50" height="50">
+                    <img src="{% static 'images/unknown_user.jpg' %}" alt="Author" class="rounded-circle me-3" width="50" height="50">
                     <div>
                         <div class="fw-bold">{{ post.author }}</div>
                         <div class="text-muted small">{{ post.created_at | date:"M d, Y" }}</div>
@@ -74,7 +75,7 @@
 
                     <div class="card border-0 shadow-sm mb-4 text-center">
                         <div class="card-body">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mb-3" width="80" alt="Author">
+                            <img src="{% static 'images/unknown_user.jpg' %}" class="rounded-circle mb-3" width="80" alt="Author">
                             <h5 class="card-title fw-bold">{{ post.author }}</h5>
                         </div>
                     </div>
